@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentContent extends Fragment implements CFragment.CFragmentListener, ItemClickListener{
+public class FragmentContent extends Fragment implements ItemClickListener{
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
     private List<ItemDataNews> listDataNews;
@@ -39,7 +39,6 @@ public class FragmentContent extends Fragment implements CFragment.CFragmentList
 
     private ItemClickListener itemClickListener;
     private FragmentItemNewsContent fragmentItemNewsContent;
-    private CFragment cFragment;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -163,11 +162,6 @@ public class FragmentContent extends Fragment implements CFragment.CFragmentList
                 adapter.notifyDataSetChanged();
             }
         }.execute(link);
-    }
-
-    @Override
-    public void changeToViewPager() {
-
     }
 
 

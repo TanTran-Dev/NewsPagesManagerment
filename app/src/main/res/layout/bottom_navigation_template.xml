@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <merge>
+
+        <LinearLayout
+            android:id="@+id/rootNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:contextClickable="true"
+            android:elevation="20dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btnNav1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_home"
+                    android:tint="@color/nav_selected" />
+
+                <TextView
+                    android:id="@+id/tvTitle1"
+                    style="@style/text_title_bottom_nav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/home"
+                    android:textColor="@color/text_nav_selected"
+                    android:textSize="16dp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnNav2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search"
+                    android:tint="@color/nav_normal" />
+
+                <TextView
+                    android:id="@+id/tvTitle2"
+                    style="@style/text_title_bottom_nav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/search"
+                    android:textColor="@color/text_nav_normal"
+                    android:textSize="16dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/measureView"
+                android:layout_width="0dp"
+                android:layout_height="70dp" />
+
+            <LinearLayout
+                android:id="@+id/btnNav3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_bookmark"
+                    android:tint="@color/nav_normal" />
+
+                <TextView
+                    android:id="@+id/tvTitle3"
+                    style="@style/text_title_bottom_nav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/bookmark"
+                    android:textColor="@color/text_nav_normal"
+                    android:textSize="16dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnNav4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_notification"
+                    android:tint="@color/nav_normal" />
+
+                <TextView
+                    android:id="@+id/tvTitle4"
+                    style="@style/text_title_bottom_nav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/notification"
+                    android:textColor="@color/text_nav_normal"
+                    android:textSize="16dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </merge>
+
+</layout>

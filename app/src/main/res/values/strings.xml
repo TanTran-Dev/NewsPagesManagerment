@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">NewsPagesManagerment</string>
+    <string name="app_name">NewsPagesManagement</string>
+    <!--    nav_title-->
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="notification">Notification</string>
+
+    <!--    tab_title-->
+    <string name="tab1">Top</string>
+    <string name="tab2">Cones</string>
+    <string name="tab3">Cups</string>
+    <string name="tab4">Ice Pops</string>
+    <string name="tab5">Sticks</string>
+
+    <!--    constant-->
+    <string name="product_id">ImageDetailsID</string>
 </resources>

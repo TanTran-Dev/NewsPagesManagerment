@@ -7,40 +7,52 @@
     android:id="@+id/drawer_layout"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:background="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="56dp">
-            <ImageView
-                android:padding="12dp"
-                android:id="@+id/imgMenu"
-                android:src="@drawable/ic_menu_black_24dp"
-                android:layout_width="56dp"
-                android:layout_height="56dp"/>
-            <TextView
-                android:textSize="20sp"
-                android:layout_gravity="center_vertical"
-                android:text="Báo mới"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:id="@+id/ln_toolbar"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:background="@color/colorPrimary"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="56dp">-->
+<!--            <ImageView-->
+<!--                android:padding="12dp"-->
+<!--                android:id="@+id/imgMenu"-->
+<!--                android:src="@drawable/ic_menu_black_24dp"-->
+<!--                android:layout_width="56dp"-->
+<!--                android:layout_height="56dp"/>-->
+<!--            <TextView-->
+<!--                android:textSize="20sp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="Báo mới"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
+<!--        </LinearLayout>-->
 
-        <FrameLayout
-            android:id="@+id/content_frame"
+        <include
+            android:id="@+id/ln_toolbar"
+            layout="@layout/main_action_bar"/>
+
+        <com.trantan.newspagesmanagerment.custom_views.BottomNavigation
+            android:layout_alignParentBottom="true"
+            android:id="@+id/rootBottomNav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <androidx.viewpager.widget.ViewPager
+            android:layout_above="@id/rootBottomNav"
+            android:layout_below="@id/ln_toolbar"
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-        </FrameLayout>
-    </LinearLayout>
-
-
+        </androidx.viewpager.widget.ViewPager>
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

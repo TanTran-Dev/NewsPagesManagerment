@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <merge>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btnTab1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitleTab1"
+                    style="@style/text_title_tabs_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab1"
+                    android:textColor="@color/text_tab_selected" />
+
+                <View
+                    android:id="@+id/lineTab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tab_line_height"
+                    android:background="@color/line_tab_selected" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnTab2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitleTab2"
+                    style="@style/text_title_tabs_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab2"
+                    android:textColor="@color/text_tab_normal" />
+
+                <View
+                    android:id="@+id/lineTab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tab_line_height"
+                    android:background="@color/line_tab_normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnTab3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitleTab3"
+                    style="@style/text_title_tabs_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab3"
+                    android:textColor="@color/text_tab_normal" />
+
+                <View
+                    android:id="@+id/lineTab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tab_line_height"
+                    android:background="@color/line_tab_normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnTab4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitleTab4"
+                    style="@style/text_title_tabs_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab4"
+                    android:textColor="@color/text_tab_normal" />
+
+                <View
+                    android:id="@+id/lineTab4"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tab_line_height"
+                    android:background="@color/line_tab_normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnTab5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTitleTab5"
+                    style="@style/text_title_tabs_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab5"
+                    android:textColor="@color/text_tab_normal" />
+
+                <View
+                    android:id="@+id/lineTab5"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tab_line_height"
+                    android:background="@color/line_tab_normal" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </merge>
+</layout>

@@ -1,6 +1,5 @@
 package com.trantan.newspagesmanagerment.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +7,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.trantan.newspagesmanagerment.ItemClickListener;
 import com.trantan.newspagesmanagerment.R;
-import com.trantan.newspagesmanagerment.fragments.FragmentItemNewsContent;
-import com.trantan.newspagesmanagerment.fragments.FragmentPage;
 import com.trantan.newspagesmanagerment.model.ItemDataNews;
 
 import java.util.List;
@@ -41,7 +36,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsHolder> {
     @NonNull
     @Override
     public NewsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news_vertical, parent, false);
         return new NewsHolder(view);
     }
 

@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#E8FAFE</color>
+    <color name="colorPrimaryDark">#AFEDFC</color>
+    <color name="colorAccent">#707070</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="pink">#FC88B5</color>
+
+    <!--    navbottom-->
+    <color name="nav_selected">#A4D2E9</color>
+    <color name="text_nav_normal">#000000</color>
+    <color name="text_nav_selected">#A4D2E9</color>
+    <color name="nav_normal">#000000</color>
+
+    <!--    tabs custom-->
+    <color name="line_tab_selected">#A4D2E9</color>
+    <color name="line_tab_normal">#00FFFFFF</color>
+    <color name="text_tab_selected">#000000</color>
+    <color name="text_tab_normal">#707070</color>
 </resources>
