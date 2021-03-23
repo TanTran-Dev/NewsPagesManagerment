@@ -9,6 +9,7 @@ import android.webkit.WebViewClient;
 
 public class ContentDetailActivity extends AppCompatActivity {
     private WebView webView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +17,7 @@ public class ContentDetailActivity extends AppCompatActivity {
 
         webView = findViewById(R.id.webview);
         Intent intent = getIntent();
-        String linkDetail = intent.getStringExtra("detail");
+        String linkDetail = intent.getStringExtra(Constants.KEY_URL_DETAIL);
         webView.loadUrl(linkDetail);
         webView.setWebViewClient(new WebViewClient());
     }

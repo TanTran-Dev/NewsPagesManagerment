@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.trantan.newspagesmanagerment.R;
+import com.trantan.newspagesmanagerment.fragments.BookmarkFragment;
 import com.trantan.newspagesmanagerment.fragments.HomeFragment;
+import com.trantan.newspagesmanagerment.fragments.SearchFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +24,8 @@ public class BottomPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         fragments = new ArrayList<>(size);
         fragments.add(new HomeFragment());
-        fragments.add(new Fragment());
-        fragments.add(new Fragment());
+        fragments.add(new SearchFragment());
+        fragments.add(new BookmarkFragment());
         fragments.add(new Fragment());
     }
 

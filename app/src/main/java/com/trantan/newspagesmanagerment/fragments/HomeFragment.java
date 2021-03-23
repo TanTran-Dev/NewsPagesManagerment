@@ -12,16 +12,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.trantan.newspagesmanagerment.R;
-import com.trantan.newspagesmanagerment.adapter.PageAdapter;
-import com.trantan.newspagesmanagerment.custom_views.CustomTabLayout;
-import com.trantan.newspagesmanagerment.custom_views.TabLayoutCustom;
+import com.trantan.newspagesmanagerment.adapter.TabNewPageAdapter;
+import com.trantan.newspagesmanagerment.event_bus.SelectedTabEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
     @BindView(R.id.tab_layout)
-    CustomTabLayout tabLayout;
+    TabLayout tabLayout;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
@@ -30,7 +31,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        viewPager.setAdapter(new PageAdapter(getChildFragmentManager()));
+        viewPager.setAdapter(new TabNewPageAdapter(getChildFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
 //        tabLayout.setListener(new ICTabs.ICTabSelectedListener() {
 //            @Override
@@ -38,6 +39,23 @@ public class HomeFragment extends Fragment {
 //                viewPager.setCurrentItem(position);
 //            }
 //        });
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                String title = tab.getText().toString();
+                EventBus.getDefault().post(new SelectedTabEvent(title));
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         return view;
     }

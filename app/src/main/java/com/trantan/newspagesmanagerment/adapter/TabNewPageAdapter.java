@@ -6,25 +6,25 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.trantan.newspagesmanagerment.fragments.FragmentContent;
+import com.trantan.newspagesmanagerment.fragments.NewsFragment;
 
-public class PageAdapter extends FragmentPagerAdapter {
-    public PageAdapter(@NonNull FragmentManager fm, int behavior) {
+public class TabNewPageAdapter extends FragmentPagerAdapter {
+    public TabNewPageAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
-    public PageAdapter(FragmentManager childFragmentManager) {
+    public TabNewPageAdapter(FragmentManager childFragmentManager) {
         super(childFragmentManager);
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        FragmentContent content = new FragmentContent();
+        NewsFragment content = new NewsFragment();
 
         switch (position){
             case 0:
-                content.setLink("https://www.24h.com.vn");
+                content.setLink("https://www.24h.com.vn/tin-tuc-trong-ngay-c46.html");
                 break;
             case 1:
                 content.setLink("https://www.24h.com.vn/tin-tuc-quoc-te-c415.html");
@@ -41,6 +41,9 @@ public class PageAdapter extends FragmentPagerAdapter {
             case 5:
                 content.setLink("https://www.24h.com.vn/cong-nghe-thong-tin-c55.html");
                 break;
+            case 6:
+                content.setLink("https://www.24h.com.vn/giai-tri-c731.html");
+                break;
         }
 
         return content;
@@ -48,7 +51,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 6;
+        return 7;
     }
 
 
@@ -58,7 +61,7 @@ public class PageAdapter extends FragmentPagerAdapter {
 
         switch (position){
             case 0:
-                return  "Tin tức trong ngày ";
+                return "Tin tức trong ngày";
             case 1:
                 return "Tin tức quốc tế";
             case 2:
@@ -67,7 +70,9 @@ public class PageAdapter extends FragmentPagerAdapter {
                 return "Kinh doanh";
             case 4:
                 return "Thể thao";
+            case 5:
+                return "Công nghệ";
         }
-        return "Công nghệ";
+        return "Giải trí";
     }
 }

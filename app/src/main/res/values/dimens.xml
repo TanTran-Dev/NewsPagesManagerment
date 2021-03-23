@@ -9,4 +9,5 @@
     <dimen name="xxxxl">32dp</dimen>
 
     <dimen name="tab_line_height">3dp</dimen>
+    <dimen name="app_bar_layout_height">350dp</dimen>
 </resources>

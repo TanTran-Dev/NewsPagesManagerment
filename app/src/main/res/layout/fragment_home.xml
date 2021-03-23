@@ -5,15 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.trantan.newspagesmanagerment.custom_views.CustomTabLayout
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         style="@style/CustomTabLayout"
+        app:tabTextAppearance="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:tabMode="scrollable"
-        android:background="@color/colorPrimary"
-
-        />
+        android:background="@color/colorPrimary" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
