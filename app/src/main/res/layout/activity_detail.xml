@@ -66,7 +66,6 @@
                 android:id="@+id/txt_title_preview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
                 android:text="Top Tile"
                 android:textSize="24dp"
                 android:textStyle="bold" />

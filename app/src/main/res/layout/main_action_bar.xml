@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="@font/poppins_medium"
         android:text="Báo Lá Cải"
         android:textColor="@color/nav_normal"
         android:textSize="20sp"
