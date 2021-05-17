@@ -1,4 +1,4 @@
-package com.trantan.newspagesmanagerment.fragments;
+package com.trantan.newspagesmanagerment.view.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;

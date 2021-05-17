@@ -1,12 +1,11 @@
 package com.trantan.newspagesmanagerment.networks._24h;
 
 import android.os.AsyncTask;
-import android.widget.Adapter;
 
-import com.trantan.newspagesmanagerment.adapter.ListNewsAdapter;
+import com.trantan.newspagesmanagerment.adapter.ListPostAdapter;
 import com.trantan.newspagesmanagerment.event_bus.DataNewsEvent;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
-import com.trantan.newspagesmanagerment.view.NewsView;
+import com.trantan.newspagesmanagerment.view.PostView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jsoup.Jsoup;
@@ -18,11 +17,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class News24HTopCrawler<T extends ListNewsAdapter> extends AsyncTask<String, Void, List<ItemDataNew>> {
+public class News24HTopCrawler<T extends ListPostAdapter> extends AsyncTask<String, Void, List<ItemDataNew>> {
     private T adapter;
-    private NewsView view;
+    private PostView view;
 
-    public News24HTopCrawler(T adapter, NewsView view) {
+    public News24HTopCrawler(T adapter, PostView view) {
         this.adapter = adapter;
         this.view = view;
     }
@@ -64,6 +63,6 @@ public class News24HTopCrawler<T extends ListNewsAdapter> extends AsyncTask<Stri
         view.hideRefreshingProgress();
         view.enableRefreshing(true);
         adapter.addListTop(itemDataNews);
-        adapter.notifyItemChanged(ListNewsAdapter.VIEW_TYPE_TOP_NEWS);
+        adapter.notifyItemChanged(ListPostAdapter.VIEW_TYPE_TOP_NEWS);
     }
 }

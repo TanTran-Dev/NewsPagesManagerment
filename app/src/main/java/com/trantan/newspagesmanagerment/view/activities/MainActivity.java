@@ -1,17 +1,13 @@
-package com.trantan.newspagesmanagerment.activities;
+package com.trantan.newspagesmanagerment.view.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -21,8 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.adapter.BottomPagerAdapter;
-import com.trantan.newspagesmanagerment.custom_views.BottomNavigation;
-import com.trantan.newspagesmanagerment.fragments.HomeFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

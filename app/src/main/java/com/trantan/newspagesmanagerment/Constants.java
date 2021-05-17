@@ -6,4 +6,5 @@ public class Constants {
     public static final String KEY_NEW_TITLE_PREVIEW = "KEY_NEW_TITLE_PREVIEW";
     public static final String KEY_NEW_DESCRIPTION_PREVIEW = "KEY_NEW_DESCRIPTION_PREVIEW";
     public static final String KEY_ITEM_NEW = "KEY_ITEM_NEW";
+    public static final String KEY_CATEGORY_ID = "KEY_CATEGORY_ID";
 }

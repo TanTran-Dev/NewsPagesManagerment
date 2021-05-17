@@ -1,4 +1,4 @@
-package com.trantan.newspagesmanagerment.fragments;
+package com.trantan.newspagesmanagerment.view.fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 
 import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
-import com.trantan.newspagesmanagerment.activities.DetailActivity;
+import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
 import com.trantan.newspagesmanagerment.adapter.SearchResultAdapter;
 import com.trantan.newspagesmanagerment.adapter.SuggestionAdapter;
 import com.trantan.newspagesmanagerment.event_bus.DataNewsEvent;

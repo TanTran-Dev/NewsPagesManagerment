@@ -1,4 +1,4 @@
-package com.trantan.newspagesmanagerment.fragments;
+package com.trantan.newspagesmanagerment.view.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,26 +17,22 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
-import com.trantan.newspagesmanagerment.activities.DetailActivity;
-import com.trantan.newspagesmanagerment.adapter.ListNewsAdapter;
+import com.trantan.newspagesmanagerment.adapter.ListPostAdapter;
+import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
 import com.trantan.newspagesmanagerment.adapter.SearchResultAdapter;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
 import com.trantan.newspagesmanagerment.model.TopicModel;
-import com.trantan.newspagesmanagerment.networks._24h.News24HCrawler;
-import com.trantan.newspagesmanagerment.networks._24h.News24HTopCrawler;
-import com.trantan.newspagesmanagerment.view.NewsView;
-
-import java.util.List;
+import com.trantan.newspagesmanagerment.view.PostView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewsFragment extends Fragment implements SearchResultAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener , NewsView {
+public class PostFragment extends Fragment implements SearchResultAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener , PostView {
     @BindView(R.id.rcl_view)
     RecyclerView recyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
-    private ListNewsAdapter listNewsAdapter;
+    private ListPostAdapter listPostAdapter;
     private TopicModel topicModel;
     private String link;
 
@@ -54,11 +50,11 @@ public class NewsFragment extends Fragment implements SearchResultAdapter.ItemCl
         );
 
         ButterKnife.bind(this, view);
-        listNewsAdapter = new ListNewsAdapter();
+        listPostAdapter = new ListPostAdapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(listNewsAdapter);
+        recyclerView.setAdapter(listPostAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-        onRefresh();
+//        onRefresh();
         return view;
     }
 
@@ -79,8 +75,8 @@ public class NewsFragment extends Fragment implements SearchResultAdapter.ItemCl
 
     @Override
     public void onRefresh() {
-        new News24HTopCrawler<>(listNewsAdapter, this).execute(link);
-        new News24HCrawler<>(listNewsAdapter, this).execute(link);
+//        new News24HTopCrawler<>(listNewsAdapter, this).execute(link);
+//        new News24HCrawler<>(listNewsAdapter, this).execute(link);
     }
 
     @Override

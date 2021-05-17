@@ -17,4 +17,10 @@
     <string name="product_id">ImageDetailsID</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="error_happened">Có lỗi xảy ra</string>
+    <string name="error">Lỗi</string>
+    <string name="ok">Ok</string>
+    <string name="no_internet_connection">Không có kết nối Internet</string>
+    <string name="time_out">Timeout</string>
 </resources>

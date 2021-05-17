@@ -1,7 +1,6 @@
 package com.trantan.newspagesmanagerment.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
-import com.trantan.newspagesmanagerment.activities.DetailActivity;
+import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
 import com.trantan.newspagesmanagerment.event_bus.SelectedTabEvent;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
 import com.trantan.newspagesmanagerment.model.TopicModel;
@@ -31,14 +30,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int VIEW_TYPE_TOP_NEWS = 0;
     public static final int VIEW_TYPE_NORMAL_NEWS = 1;
     private List<ItemDataNew> topNews;
     private TopicModel topicModel;
 
 
-    public ListNewsAdapter() {
+    public ListPostAdapter() {
         this.topNews = new ArrayList<>();
         this.topicModel = new TopicModel();
     }
