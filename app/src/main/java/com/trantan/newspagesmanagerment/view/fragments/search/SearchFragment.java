@@ -1,4 +1,4 @@
-package com.trantan.newspagesmanagerment.view.fragments;
+package com.trantan.newspagesmanagerment.view.fragments.search;
 
 import android.content.Context;
 import android.content.Intent;

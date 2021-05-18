@@ -1,8 +1,8 @@
-package com.trantan.newspagesmanagerment.presenter.category;
+package com.trantan.newspagesmanagerment.presenter.home;
 
 import com.trantan.newspagesmanagerment.base.presenter.BasePresenter;
 
-public interface CategoryPresenter extends BasePresenter {
+public interface HomePresenter extends BasePresenter {
     void retrieveCategories();
     void refreshCategories();
 }

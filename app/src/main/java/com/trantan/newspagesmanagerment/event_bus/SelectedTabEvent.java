@@ -1,17 +1,22 @@
 package com.trantan.newspagesmanagerment.event_bus;
 
+import com.trantan.newspagesmanagerment.model.response.Category;
+
 public class SelectedTabEvent {
-    private String title;
+    private Category category;
 
-    public SelectedTabEvent(String title) {
-        this.title = title;
+    public SelectedTabEvent() {
     }
 
-    public String getTitle() {
-        return title;
+    public SelectedTabEvent(Category category) {
+        this.category = category;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

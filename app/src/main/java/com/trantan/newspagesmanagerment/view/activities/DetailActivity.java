@@ -24,7 +24,6 @@ import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.database.DatabaseHelper;
 import com.trantan.newspagesmanagerment.event_bus.SaveNewEvent;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
-import com.trantan.newspagesmanagerment.networks._24h.News24HDetailCrawler;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -74,7 +73,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         btnAddToBookmark.setOnClickListener(this);
         btnShare.setOnClickListener(this);
 
-        new News24HDetailCrawler<>(this, lnContent).execute(html);
     }
 
     @Override

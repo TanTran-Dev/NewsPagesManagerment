@@ -10,13 +10,13 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.model.response.Category;
-import com.trantan.newspagesmanagerment.view.fragments.PostFragment;
+import com.trantan.newspagesmanagerment.view.fragments.home.posts.PostsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TabNewPageAdapter extends FragmentPagerAdapter {
-    private List<PostFragment> fragments;
+    private List<PostsFragment> fragments;
     private List<Category> categories;
 
     public TabNewPageAdapter(@NonNull FragmentManager fm, List<Category> categories) {
@@ -33,8 +33,8 @@ public class TabNewPageAdapter extends FragmentPagerAdapter {
         super(childFragmentManager);
     }
 
-    private PostFragment createNewFragment(Category category) {
-        PostFragment result = new PostFragment();
+    private PostsFragment createNewFragment(Category category) {
+        PostsFragment result = new PostsFragment();
         Bundle args = new Bundle();
         args.putInt(Constants.KEY_CATEGORY_ID, category.getId());
         result.setArguments(args);
@@ -44,32 +44,6 @@ public class TabNewPageAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-//        NewsFragment content = new NewsFragment();
-
-//        switch (position) {
-//            case 0:
-//                content.setLink("https://www.24h.com.vn/tin-tuc-trong-ngay-c46.html");
-//                break;
-//            case 1:
-//                content.setLink("https://www.24h.com.vn/tin-tuc-quoc-te-c415.html");
-//                break;
-//            case 2:
-//                content.setLink("https://www.24h.com.vn/bong-da-c48.html");
-//                break;
-//            case 3:
-//                content.setLink("https://www.24h.com.vn/kinh-doanh-c161.html");
-//                break;
-//            case 4:
-//                content.setLink("https://www.24h.com.vn/the-thao-c101.html");
-//                break;
-//            case 5:
-//                content.setLink("https://www.24h.com.vn/cong-nghe-thong-tin-c55.html");
-//                break;
-//            case 6:
-//                content.setLink("https://www.24h.com.vn/giai-tri-c731.html");
-//                break;
-//        }
-
         return fragments.get(position);
     }
 
@@ -82,21 +56,6 @@ public class TabNewPageAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-
-//        switch (position) {
-//            case 0:
-//                return "Tin tức trong ngày";
-//            case 1:
-//                return "Tin tức quốc tế";
-//            case 2:
-//                return "Bóng đá";
-//            case 3:
-//                return "Kinh doanh";
-//            case 4:
-//                return "Thể thao";
-//            case 5:
-//                return "Công nghệ";
-//        }
         return categories.get(position).getName();
     }
 }

@@ -8,13 +8,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.bumptech.glide.Glide;
 import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
+import com.trantan.newspagesmanagerment.model.response.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final int VIEW_TYPE_NORMAL = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
-    private List<ItemDataNew> dataNews;
+    private List<Post> posts;
     private ItemClickListener itemClickListener;
     private ILoadMore loadMore;
     boolean isLoading;
@@ -34,7 +33,7 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     int lastVisibleItem, totalItemCount;
 
     public NormalNewsAdapter(RecyclerView recyclerView, ItemClickListener itemClickListener) {
-        this.dataNews = new ArrayList<>();
+        this.posts = new ArrayList<>();
         this.itemClickListener = itemClickListener;
 
 //        final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
@@ -54,12 +53,12 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //        });
     }
 
-    public void addListData(List<ItemDataNew> dataNews) {
-        this.dataNews.addAll(dataNews);
+    public void addListData(List<Post> posts) {
+        this.posts.addAll(posts);
     }
 
-    public List<ItemDataNew> getDataNews() {
-        return dataNews;
+    public List<Post> getPosts() {
+        return posts;
     }
 
     @NonNull
@@ -80,14 +79,14 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NormalNewHolder) {
-            final ItemDataNew itemDataNew = dataNews.get(position);
+            final Post post = posts.get(position);
             NormalNewHolder viewHolder = (NormalNewHolder) holder;
-            viewHolder.txtTitlePreview.setText(itemDataNew.getTitle());
-            viewHolder.txtDescription.setText(itemDataNew.getDescription());
-            viewHolder.txtCreatedDate.setText(itemDataNew.getCreatedDate());
+            viewHolder.txtTitlePreview.setText(post.getTitle());
+            viewHolder.txtDescription.setText(post.getDescription());
+            viewHolder.txtCreatedDate.setText(post.getCreatedDate());
 
             Glide.with(holder.itemView.getContext())
-                    .load(itemDataNew.getLinkImage())
+                    .load(post.getThumbnailUrl())
                     .error(R.drawable.placeholder)
                     .centerCrop()
                     .into(viewHolder.imgNews);
@@ -104,7 +103,7 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-        return getDataNews().get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_NORMAL;
+        return getPosts().get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_NORMAL;
     }
 
     public void setLoadMore(ILoadMore loadMore) {
@@ -113,7 +112,7 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return dataNews.size();
+        return posts.size();
     }
 
     class NormalNewHolder extends RecyclerView.ViewHolder {
@@ -131,13 +130,13 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(v -> {
                 int i = getAdapterPosition();
-                itemClickListener.onItemClick(dataNews.get(i), imgNews, i);
+                itemClickListener.onItemClick(posts.get(i), imgNews, i);
             });
         }
     }
 
     public interface ItemClickListener {
-        void onItemClick(ItemDataNew itemDataNew, View view, int position);
+        void onItemClick(Post item, View view, int position);
 
         void onLongClickItem(ItemDataNew itemDataNew);
 

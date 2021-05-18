@@ -1,31 +1,24 @@
 package com.trantan.newspagesmanagerment.model.response;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Category {
     @SerializedName("id")
-    private int id;
-
+    @Expose
+    private Integer id;
     @SerializedName("name")
+    @Expose
     private String name;
-
     @SerializedName("path")
+    @Expose
     private String path;
 
-    public Category() {
-    }
-
-    public Category(int id, String name, String path) {
-        this.id = id;
-        this.name = name;
-        this.path = path;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

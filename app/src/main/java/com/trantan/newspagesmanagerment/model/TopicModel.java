@@ -1,17 +1,19 @@
 package com.trantan.newspagesmanagerment.model;
 
+import com.trantan.newspagesmanagerment.model.response.Post;
+
 import java.util.List;
 
 public class TopicModel {
     private String title;
-    private List<ItemDataNew> dataNewList;
+    private List<Post> posts;
 
     public TopicModel() {
     }
 
-    public TopicModel(String title, List<ItemDataNew> dataNewList) {
+    public TopicModel(String title, List<Post> posts) {
         this.title = title;
-        this.dataNewList = dataNewList;
+        this.posts = posts;
     }
 
     public String getTitle() {
@@ -22,11 +24,11 @@ public class TopicModel {
         this.title = title;
     }
 
-    public List<ItemDataNew> getDataNewList() {
-        return dataNewList;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setDataNewList(List<ItemDataNew> dataNewList) {
-        this.dataNewList = dataNewList;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

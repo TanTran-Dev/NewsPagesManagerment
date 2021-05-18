@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
+import com.trantan.newspagesmanagerment.model.response.Post;
 import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
 import com.trantan.newspagesmanagerment.event_bus.SelectedTabEvent;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
@@ -30,14 +31,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int VIEW_TYPE_TOP_NEWS = 0;
     public static final int VIEW_TYPE_NORMAL_NEWS = 1;
     private List<ItemDataNew> topNews;
     private TopicModel topicModel;
 
 
-    public ListPostAdapter() {
+    public PostsAdapter() {
         this.topNews = new ArrayList<>();
         this.topicModel = new TopicModel();
     }
@@ -86,9 +87,9 @@ public class ListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         } else if (holder instanceof ListNormalNewViewHolder) {
             ListNormalNewViewHolder viewHolder = (ListNormalNewViewHolder) holder;
-            if (topicModel.getDataNewList() != null && !topicModel.getDataNewList().isEmpty()) {
+            if (topicModel.getPosts() != null && !topicModel.getPosts().isEmpty()) {
                 viewHolder.txtHeaderTitle.setText(topicModel.getTitle());
-                viewHolder.normalNewAdapter.addListData(topicModel.getDataNewList());
+                viewHolder.normalNewAdapter.addListData(topicModel.getPosts());
             }
         }
     }
@@ -150,7 +151,6 @@ public class ListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ListNormalNewViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            EventBus.getDefault().register(this);
 
             normalNewAdapter = new NormalNewsAdapter(rclView, this);
             LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext());
@@ -186,22 +186,22 @@ public class ListPostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             normalNewAdapter.setLoadMore(new NormalNewsAdapter.ILoadMore() {
                 @Override
                 public void onLoadMore() {
-                    if (normalNewAdapter.getDataNews().size() <= 10) {
+                    if (normalNewAdapter.getPosts().size() <= 10) {
 
                     }
                 }
             });
         }
 
-        @Subscribe(threadMode = ThreadMode.MAIN)
-        public void onSelectedTabEvent(SelectedTabEvent event) {
-            txtHeaderTitle.setText(event.getTitle());
-        }
+//        @Subscribe(threadMode = ThreadMode.MAIN)
+//        public void onSelectedTabEvent(SelectedTabEvent event) {
+//            txtHeaderTitle.setText(event.getTitle());
+//        }
 
         @Override
-        public void onItemClick(ItemDataNew itemDataNew, View view, int position) {
+        public void onItemClick(Post itemPost, View view, int position) {
             Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
-            intent.putExtra(Constants.KEY_ITEM_NEW, itemDataNew);
+            intent.putExtra(Constants.KEY_ITEM_NEW, itemPost);
 
             ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
                     .makeSceneTransitionAnimation((Activity) itemView.getContext(), view.findViewById(R.id.img_new), "imgNews");
