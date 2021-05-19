@@ -19,4 +19,32 @@
     <color name="line_tab_normal">#00FFFFFF</color>
     <color name="text_tab_selected">#000000</color>
     <color name="text_tab_normal">#707070</color>
+
+
+    <color name="owned_message_background_unsent">#53c4f7</color>
+    <color name="owned_message_background_sent">@color/colorPrimary</color>
+    <color name="opposite_message_background">@android:color/white</color>
+
+    <color name="dot_online_color">#00FF00</color>
+    <color name="dot_offline_color">#AAAAAA</color>
+
+    <color name="transparent_black">#3F000000</color>
+    <color name="light_gray">#EFEFEF</color>
+    <color name="dark_gray">#4C4C4C</color>
+    <color name="green_light">#89B700</color>
+    <color name="disable_color">#42000000</color>
+    <color name="map_circle_stroke_color">#E629B5E3</color>
+    <color name="map_circle_background_color">#4029B5E3</color>
+    <color name="gray">#C0C0C0</color>
+
+    <color name="part_time_color">#66BB6A</color>
+    <color name="full_time_color">#FF6B03</color>
+    <color name="intern_color">#69CBEB</color>
+    <color name="title_highlight_color">#F44336</color>
+    <color name="error_color">@color/md_red_500</color>
+
+    <color name="pending_color">@color/md_yellow_700</color>
+    <color name="accepted_color">@color/md_green_500</color>
+    <color name="rejected_color">@color/md_red_500</color>
+    <color name="green">#4CAF50</color>
 </resources>

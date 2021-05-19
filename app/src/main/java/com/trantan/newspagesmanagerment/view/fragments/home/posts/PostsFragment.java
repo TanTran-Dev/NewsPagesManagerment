@@ -48,7 +48,7 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
     }
 
     private void getDataFromArgs(Bundle args){
-        int categoryId = args.getInt(Constants.KEY_CATEGORY_ID, 0);
+        int categoryId = args.getInt(Constants.KEY_CATEGORY_ID, -1);
         if (categoryId > 0) {
             getPresenter().setCategoryID(categoryId);
         }
@@ -84,6 +84,21 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
     @Override
     public void refreshPosts(List<Post> posts) {
         postAdapter.addPosts(posts);
+    }
+
+    @Override
+    public void enableRefreshingProgress(boolean enable) {
+        swipeRefreshLayout.setEnabled(enable);
+    }
+
+    @Override
+    public void showRefreshingProgress() {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void hideRefreshingProgress() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

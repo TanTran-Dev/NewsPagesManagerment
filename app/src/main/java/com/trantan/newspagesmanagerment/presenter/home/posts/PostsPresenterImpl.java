@@ -28,11 +28,13 @@ public class PostsPresenterImpl implements PostsPresenter {
 
     @Override
     public void refreshPosts() {
+        view.showRefreshingProgress();
+        view.enableRefreshingProgress(false);
         interactor.getPosts(categoryID, 0, 50,
                 new OnResponseAdapter<ResponseBody<Page<Post>>, ResponseBody>(context) {
                     @Override
                     public void complete(boolean success) {
-
+                        view.hideRefreshingProgress();
                     }
 
                     @Override
