@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.adapter.PostsAdapter;
-import com.trantan.newspagesmanagerment.base.view.BaseFragment;
+import com.trantan.newspagesmanagerment.base.view.fragment.BaseFragment;
 import com.trantan.newspagesmanagerment.event_bus.SelectedTabEvent;
-import com.trantan.newspagesmanagerment.model.response.Category;
 import com.trantan.newspagesmanagerment.model.response.Post;
 import com.trantan.newspagesmanagerment.presenter.home.posts.PostsPresenterImpl;
 
@@ -42,20 +42,23 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
     @Override
     protected void initVariables(Bundle saveInstanceState, View rootView) {
         ButterKnife.bind(this, rootView);
+        Bundle args = getArguments();
+        getDataFromArgs(args);
 
-        postAdapter = new PostsAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(postAdapter);
+    }
 
-        swipeRefreshLayout.setOnRefreshListener(this);
-
+    private void getDataFromArgs(Bundle args){
+        int categoryId = args.getInt(Constants.KEY_CATEGORY_ID, 0);
+        if (categoryId > 0) {
+            getPresenter().setCategoryID(categoryId);
+        }
+        getPresenter().refreshPosts();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         EventBus.getDefault().register(this);
-
     }
 
     @Override
@@ -66,7 +69,11 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
 
     @Override
     protected void initData(Bundle saveInstanceState) {
+        postAdapter = new PostsAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(postAdapter);
 
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -76,16 +83,16 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
 
     @Override
     public void refreshPosts(List<Post> posts) {
-
+        postAdapter.addPosts(posts);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSelectedTabEvent(SelectedTabEvent selectedTabEvent) {
-        getPresenter().refreshPosts(selectedTabEvent.getCategory().getId());
+   //     getPresenter().setCategoryID(selectedTabEvent.getCategory().getId());
     }
 
     @Override
     public void onRefresh() {
-//        getPresenter().refreshPosts();
+        getPresenter().refreshPosts();
     }
 }

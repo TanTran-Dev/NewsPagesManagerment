@@ -8,12 +8,17 @@ import com.trantan.newspagesmanagerment.base.presenter.OnResponseAdapter;
 import com.trantan.newspagesmanagerment.model.response.Post;
 import com.trantan.newspagesmanagerment.view.fragments.home.posts.PostsView;
 
-import java.util.List;
 
 public class PostsPresenterImpl implements PostsPresenter {
     private Context context;
     private PostsView view;
     private PostsInteractor interactor;
+
+    private int categoryID;
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
 
     public PostsPresenterImpl(Context context, PostsView view) {
         this.context = context;
@@ -22,7 +27,7 @@ public class PostsPresenterImpl implements PostsPresenter {
     }
 
     @Override
-    public void refreshPosts(Integer categoryID) {
+    public void refreshPosts() {
         interactor.getPosts(categoryID, 0, 50,
                 new OnResponseAdapter<ResponseBody<Page<Post>>, ResponseBody>(context) {
                     @Override
@@ -32,8 +37,8 @@ public class PostsPresenterImpl implements PostsPresenter {
 
                     @Override
                     public void success(ResponseBody<Page<Post>> body) {
-                        List<Post> posts = body.getData().getItems();
-                        view.refreshPosts(posts);
+                        Page<Post> posts = body.getData();
+                        view.refreshPosts(posts.getItems());
                     }
                 });
     }

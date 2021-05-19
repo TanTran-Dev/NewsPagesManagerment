@@ -1,4 +1,4 @@
-package com.trantan.newspagesmanagerment.base.view;
+package com.trantan.newspagesmanagerment.base.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

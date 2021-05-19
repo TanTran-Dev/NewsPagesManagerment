@@ -38,7 +38,8 @@ public class HomeInteractorImpl implements HomeInteractor {
     }
 
     @Override
-    public void getCategories(int pageIndex, int pageSize, OnResponseListener<ResponseBody<Page<Category>>, ResponseBody> listener) {
+    public void getCategories(int pageIndex, int pageSize,
+                              OnResponseListener<ResponseBody<Page<Category>>, ResponseBody> listener) {
         Disposable disposable = ApiClient.getInstance()
                 .create(CategoryService.class)
                 .getCategories(null, null, pageIndex, pageSize)

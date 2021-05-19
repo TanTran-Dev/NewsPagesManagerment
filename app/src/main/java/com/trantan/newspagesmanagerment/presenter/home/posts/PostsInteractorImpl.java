@@ -7,7 +7,9 @@ import com.trantan.newspagesmanagerment.base.model.ResponseBody;
 import com.trantan.newspagesmanagerment.base.network.ApiClient;
 import com.trantan.newspagesmanagerment.base.network.ResponseObserver;
 import com.trantan.newspagesmanagerment.base.presenter.OnResponseListener;
+import com.trantan.newspagesmanagerment.model.response.Category;
 import com.trantan.newspagesmanagerment.model.response.Post;
+import com.trantan.newspagesmanagerment.service.category.CategoryService;
 import com.trantan.newspagesmanagerment.service.post.PostService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,6 +32,18 @@ public class PostsInteractorImpl implements PostsInteractor {
         Disposable disposable = ApiClient.getInstance()
                 .create(PostService.class)
                 .getPosts(categoryID, null, null, pageIndex, pageSize)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribeWith(new ResponseObserver<>(listener));
+        compositeDisposable.add(disposable);
+    }
+
+    @Override
+    public void getCategories(int pageIndex, int pageSize,
+                              OnResponseListener<ResponseBody<Page<Category>>, ResponseBody> listener) {
+        Disposable disposable = ApiClient.getInstance()
+                .create(CategoryService.class)
+                .getCategories(null, null, pageIndex, pageSize)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribeWith(new ResponseObserver<>(listener));

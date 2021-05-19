@@ -17,13 +17,7 @@ import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.model.response.Post;
 import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
-import com.trantan.newspagesmanagerment.event_bus.SelectedTabEvent;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
-import com.trantan.newspagesmanagerment.model.TopicModel;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,25 +28,39 @@ import butterknife.ButterKnife;
 public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int VIEW_TYPE_TOP_NEWS = 0;
     public static final int VIEW_TYPE_NORMAL_NEWS = 1;
+
+    public static final int VIEW_TYPE_TOP_NEWS_POSITION = 0;
+    public static final int VIEW_TYPE_NORMAL_NEWS_POSITION = 1;
     private List<ItemDataNew> topNews;
-    private TopicModel topicModel;
+    private List<Post> posts;
 
 
     public PostsAdapter() {
         this.topNews = new ArrayList<>();
-        this.topicModel = new TopicModel();
+        this.posts = new ArrayList<>();
     }
 
     public void addListTop(List<ItemDataNew> topNews) {
         this.topNews.addAll(topNews);
-    }
-
-    public void setTopicModel(TopicModel topicModel) {
-        this.topicModel = topicModel;
+        notifyItemChanged(VIEW_TYPE_TOP_NEWS_POSITION);
     }
 
     public List<ItemDataNew> getTopNews() {
         return topNews;
+    }
+
+    public void addPosts(List<Post> posts) {
+        this.posts.addAll(posts);
+        notifyItemChanged(VIEW_TYPE_NORMAL_NEWS_POSITION);
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void refreshPosts(List<Post> posts){
+        this.posts = posts;
+        notifyItemChanged(VIEW_TYPE_NORMAL_NEWS_POSITION);
     }
 
     @NonNull
@@ -87,9 +95,9 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
         } else if (holder instanceof ListNormalNewViewHolder) {
             ListNormalNewViewHolder viewHolder = (ListNormalNewViewHolder) holder;
-            if (topicModel.getPosts() != null && !topicModel.getPosts().isEmpty()) {
-                viewHolder.txtHeaderTitle.setText(topicModel.getTitle());
-                viewHolder.normalNewAdapter.addListData(topicModel.getPosts());
+            if (posts != null && !posts.isEmpty()) {
+//                viewHolder.txtHeaderTitle.setText(topicModel.getTitle());
+                viewHolder.normalNewAdapter.setListData(posts);
             }
         }
     }

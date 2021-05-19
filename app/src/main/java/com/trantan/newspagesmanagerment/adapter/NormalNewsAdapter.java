@@ -53,8 +53,9 @@ public class NormalNewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //        });
     }
 
-    public void addListData(List<Post> posts) {
-        this.posts.addAll(posts);
+    public void setListData(List<Post> posts) {
+        this.posts = posts;
+        notifyDataSetChanged();
     }
 
     public List<Post> getPosts() {

@@ -1,4 +1,4 @@
-package com.trantan.newspagesmanagerment.base.view;
+package com.trantan.newspagesmanagerment.base.view.activity;
 
 import android.os.Bundle;
 
