@@ -35,6 +35,7 @@ public class PostsPresenterImpl implements PostsPresenter {
                     @Override
                     public void complete(boolean success) {
                         view.hideRefreshingProgress();
+                        view.enableRefreshingProgress(true);
                     }
 
                     @Override

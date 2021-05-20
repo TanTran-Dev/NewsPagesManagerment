@@ -26,8 +26,6 @@ public class HomeFragment extends BaseFragment<HomePresenterImpl> implements Hom
     @BindView(R.id.view_pager)
     ViewPager viewPager;
 
-    private List<Category> categories;
-    @Override
     protected int getLayoutIntResource() {
         return R.layout.fragment_home;
     }
@@ -68,8 +66,6 @@ public class HomeFragment extends BaseFragment<HomePresenterImpl> implements Hom
 
     @Override
     public void refreshListCategories(List<Category> categories) {
-//        this.categories = categories;
-
         TabNewPageAdapter pageAdapter = new TabNewPageAdapter(getChildFragmentManager(), categories);
 //        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         viewPager.setAdapter(pageAdapter);
