@@ -3,6 +3,7 @@ package com.trantan.newspagesmanagerment.view.fragments.home.posts;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +33,8 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rcl_view)
     RecyclerView recyclerView;
+    @BindView(R.id.ln_no_data)
+    LinearLayout lnNoData;
 
     private PostsAdapter postAdapter;
     @Override
@@ -84,6 +87,7 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
     @Override
     public void refreshPosts(List<Post> posts) {
         postAdapter.addPosts(posts);
+        checkNoData();
     }
 
     @Override
@@ -109,5 +113,11 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
     @Override
     public void onRefresh() {
         getPresenter().refreshPosts();
+    }
+
+    private void checkNoData(){
+        if (postAdapter.getItemCount() == 0) {
+            lnNoData.setVisibility(postAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+        }
     }
 }

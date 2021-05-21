@@ -201,11 +201,6 @@ public class PostsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
         }
 
-//        @Subscribe(threadMode = ThreadMode.MAIN)
-//        public void onSelectedTabEvent(SelectedTabEvent event) {
-//            txtHeaderTitle.setText(event.getTitle());
-//        }
-
         @Override
         public void onItemClick(Post itemPost, View view, int position) {
             Intent intent = new Intent(itemView.getContext(), DetailActivity.class);
