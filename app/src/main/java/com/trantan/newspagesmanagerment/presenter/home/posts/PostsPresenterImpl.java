@@ -14,10 +14,15 @@ public class PostsPresenterImpl implements PostsPresenter {
     private PostsView view;
     private PostsInteractor interactor;
 
+    private int websiteID = 1;
     private int categoryID;
 
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
+    }
+
+    public void setWebsiteID(int websiteID) {
+        this.websiteID = websiteID;
     }
 
     public PostsPresenterImpl(Context context, PostsView view) {
@@ -30,7 +35,7 @@ public class PostsPresenterImpl implements PostsPresenter {
     public void refreshPosts() {
         view.showRefreshingProgress();
         view.enableRefreshingProgress(false);
-        interactor.getPosts(categoryID, 0, 50,
+        interactor.getPosts(websiteID, categoryID, 0, 50,
                 new OnResponseAdapter<ResponseBody<Page<Post>>, ResponseBody>(context) {
                     @Override
                     public void complete(boolean success) {

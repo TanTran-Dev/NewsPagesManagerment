@@ -14,6 +14,7 @@ import retrofit2.http.Query;
 public interface PostService {
     @GET("/api/post/posts")
     Observable<ResponseBody<Page<Post>>> getPosts(
+            @Query("websiteID") Integer websiteID,
             @Query("categoryID") Integer categoryID,
             @Query(RequestConstants.SORT_BY) List<String> sortBy,
             @Query(RequestConstants.SORT_TYPE) List<String> sortType,

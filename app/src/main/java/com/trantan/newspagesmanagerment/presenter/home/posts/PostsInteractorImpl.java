@@ -27,11 +27,11 @@ public class PostsInteractorImpl implements PostsInteractor {
     }
 
     @Override
-    public void getPosts(Integer categoryID, int pageIndex, int pageSize,
+    public void getPosts(Integer websiteID, Integer categoryID, int pageIndex, int pageSize,
                          OnResponseListener<ResponseBody<Page<Post>>, ResponseBody> listener) {
         Disposable disposable = ApiClient.getInstance()
                 .create(PostService.class)
-                .getPosts(categoryID, null, null, pageIndex, pageSize)
+                .getPosts(websiteID, categoryID, null, null, pageIndex, pageSize)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribeWith(new ResponseObserver<>(listener));

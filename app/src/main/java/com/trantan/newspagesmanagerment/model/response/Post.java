@@ -26,10 +26,15 @@ public class Post implements Serializable {
     @ColumnInfo(name = "description")
     private String description;
 
-    @SerializedName("categoryDto")
+    @SerializedName("categoryDTO")
     @Expose
     @ColumnInfo(name = "category_id")
     private Category category;
+
+    @SerializedName("websiteDTO")
+    @Expose
+    @ColumnInfo(name = "website_id")
+    private Website website;
 
     @SerializedName("thumbnailUrl")
     @Expose
@@ -49,12 +54,13 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post(String id, String title, String description, Category category,
+    public Post(String id, String title, String description, Category category, Website website,
                 String thumbnailUrl, String linkDetail, String createdDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
+        this.website = website;
         this.thumbnailUrl = thumbnailUrl;
         this.linkDetail = linkDetail;
         this.createdDate = createdDate;
@@ -114,5 +120,13 @@ public class Post implements Serializable {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Website getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(Website website) {
+        this.website = website;
     }
 }
