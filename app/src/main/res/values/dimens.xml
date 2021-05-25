@@ -23,4 +23,7 @@
 
 <!--    Font-->
     <dimen name="font_size_30dp">30dp</dimen>
+    <dimen name="font_size_18dp">18dp</dimen>
+    <dimen name="drawer_header_height">192dp</dimen>
+    <dimen name="padding_8dp">8dp</dimen>
 </resources>

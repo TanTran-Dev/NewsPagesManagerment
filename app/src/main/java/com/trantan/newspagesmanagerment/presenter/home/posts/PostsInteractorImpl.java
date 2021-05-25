@@ -9,8 +9,8 @@ import com.trantan.newspagesmanagerment.base.network.ResponseObserver;
 import com.trantan.newspagesmanagerment.base.presenter.OnResponseListener;
 import com.trantan.newspagesmanagerment.model.response.Category;
 import com.trantan.newspagesmanagerment.model.response.Post;
-import com.trantan.newspagesmanagerment.service.category.CategoryService;
-import com.trantan.newspagesmanagerment.service.post.PostService;
+import com.trantan.newspagesmanagerment.service.CategoryService;
+import com.trantan.newspagesmanagerment.service.PostService;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

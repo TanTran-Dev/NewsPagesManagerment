@@ -43,7 +43,7 @@ public class PostsPresenterImpl implements PostsPresenter {
                     @Override
                     public void complete(boolean success) {
                         view.enableLoadMore(true);
-                        if (!success){
+                        if (!success) {
                             view.refreshPosts(Collections.emptyList());
                         }
                     }
@@ -77,11 +77,11 @@ public class PostsPresenterImpl implements PostsPresenter {
                     @Override
                     public void success(ResponseBody<Page<Post>> body) {
                         Page<Post> page = body.getData();
-                        if (page.getPageIndex() == page.getMaxPageIndex()){
+                        if (page.getPageIndex() == page.getMaxPageIndex()) {
                             view.enableLoadMore(false);
                         }
 
-                        currentPage ++;
+                        currentPage++;
 
                         view.addPosts(page.getItems());
                     }
