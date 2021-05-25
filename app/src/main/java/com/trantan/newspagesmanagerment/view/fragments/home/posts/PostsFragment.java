@@ -30,7 +30,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements PostsView,
-        SwipeRefreshLayout.OnRefreshListener, EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener, RecyclerViewAdapter.OnItemClickListener {
+        SwipeRefreshLayout.OnRefreshListener, EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener,
+        RecyclerViewAdapter.OnItemClickListener {
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rcl_view)
@@ -48,8 +49,15 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
     @Override
     protected void initVariables(Bundle saveInstanceState, View rootView) {
         ButterKnife.bind(this, rootView);
-        Bundle args = getArguments();
-        getDataFromArgs(args);
+
+        postAdapter = new PostsAdapter(getContext());
+        postAdapter.addOnItemClickListener(this);
+        postAdapter.setLoadingMoreListener(this);
+        rclPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rclPosts.setAdapter(postAdapter);
+
+        swipeRefreshLayout.setOnRefreshListener(this);
+
     }
 
     private void getDataFromArgs(Bundle args) {
@@ -74,13 +82,8 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
 
     @Override
     protected void initData(Bundle saveInstanceState) {
-        postAdapter = new PostsAdapter(getContext());
-        postAdapter.addOnItemClickListener(this);
-        postAdapter.setLoadingMoreListener(this);
-        rclPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        rclPosts.setAdapter(postAdapter);
-
-        swipeRefreshLayout.setOnRefreshListener(this);
+        Bundle args = getArguments();
+        getDataFromArgs(args);
     }
 
     @Override

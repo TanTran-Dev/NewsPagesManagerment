@@ -36,13 +36,15 @@ public class PostsPresenterImpl implements PostsPresenter {
 
     @Override
     public void refreshPosts() {
-        view.showRefreshingProgress();
         view.enableRefreshingProgress(false);
+        view.showRefreshingProgress();
         interactor.getPosts(websiteID, categoryID, 0, 15,
                 new OnResponseAdapter<ResponseBody<Page<Post>>, ResponseBody>(context) {
                     @Override
                     public void complete(boolean success) {
+                        view.hideRefreshingProgress();
                         view.enableLoadMore(true);
+                        view.enableRefreshingProgress(true);
                         if (!success) {
                             view.refreshPosts(Collections.emptyList());
                         }
@@ -71,6 +73,7 @@ public class PostsPresenterImpl implements PostsPresenter {
                     @Override
                     public void complete(boolean success) {
                         view.hideLoadMoreProgress();
+                        view.hideRefreshingProgress();
                         view.enableRefreshingProgress(true);
                     }
 
