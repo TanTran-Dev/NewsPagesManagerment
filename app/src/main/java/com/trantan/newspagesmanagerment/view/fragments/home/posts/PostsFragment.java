@@ -12,7 +12,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
-import com.trantan.newspagesmanagerment.adapter.PostsAdapter;
+import com.trantan.newspagesmanagerment.adapter.recycleview.PostsAdapter;
+import com.trantan.newspagesmanagerment.adapter.recycleview.base.EndlessLoadingRecyclerViewAdapter;
+import com.trantan.newspagesmanagerment.adapter.recycleview.base.RecyclerViewAdapter;
 import com.trantan.newspagesmanagerment.base.view.fragment.BaseFragment;
 import com.trantan.newspagesmanagerment.event_bus.SelectedTabEvent;
 import com.trantan.newspagesmanagerment.model.response.Post;
@@ -28,15 +30,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements PostsView,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener, EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener, RecyclerViewAdapter.OnItemClickListener {
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.rcl_view)
-    RecyclerView recyclerView;
+    RecyclerView rclPosts;
     @BindView(R.id.ln_no_data)
     LinearLayout lnNoData;
 
     private PostsAdapter postAdapter;
+
     @Override
     protected int getLayoutIntResource() {
         return R.layout.fragment_posts;
@@ -47,10 +50,9 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
         ButterKnife.bind(this, rootView);
         Bundle args = getArguments();
         getDataFromArgs(args);
-
     }
 
-    private void getDataFromArgs(Bundle args){
+    private void getDataFromArgs(Bundle args) {
         int categoryId = args.getInt(Constants.KEY_CATEGORY_ID, -1);
         if (categoryId > 0) {
             getPresenter().setCategoryID(categoryId);
@@ -72,9 +74,11 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
 
     @Override
     protected void initData(Bundle saveInstanceState) {
-        postAdapter = new PostsAdapter();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(postAdapter);
+        postAdapter = new PostsAdapter(getContext());
+        postAdapter.addOnItemClickListener(this);
+        postAdapter.setLoadingMoreListener(this);
+        rclPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rclPosts.setAdapter(postAdapter);
 
         swipeRefreshLayout.setOnRefreshListener(this);
     }
@@ -86,8 +90,19 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
 
     @Override
     public void refreshPosts(List<Post> posts) {
-        postAdapter.addPosts(posts);
-        checkNoData();
+        postAdapter.refresh(posts);
+        if (posts.size() == 0) {
+            lnNoData.setVisibility(View.VISIBLE);
+            rclPosts.setVisibility(View.GONE);
+        } else {
+            lnNoData.setVisibility(View.GONE);
+            rclPosts.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void addPosts(List<Post> posts) {
+        postAdapter.addModels(posts, false);
     }
 
     @Override
@@ -105,9 +120,24 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
         swipeRefreshLayout.setRefreshing(false);
     }
 
+    @Override
+    public void showLoadMoreProgress() {
+        postAdapter.showLoadingItem(true);
+    }
+
+    @Override
+    public void hideLoadMoreProgress() {
+        postAdapter.hideLoadingItem();
+    }
+
+    @Override
+    public void enableLoadMore(boolean enable) {
+        postAdapter.enableLoadingMore(enable);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSelectedTabEvent(SelectedTabEvent selectedTabEvent) {
-   //     getPresenter().setCategoryID(selectedTabEvent.getCategory().getId());
+        //     getPresenter().setCategoryID(selectedTabEvent.getCategory().getId());
     }
 
     @Override
@@ -115,9 +145,13 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
         getPresenter().refreshPosts();
     }
 
-    private void checkNoData(){
-        if (postAdapter.getItemCount() == 0) {
-            lnNoData.setVisibility(postAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
-        }
+    @Override
+    public void onLoadMore() {
+        getPresenter().loadMorePosts();
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.Adapter adapter, RecyclerView.ViewHolder viewHolder, int viewType, int position) {
+
     }
 }

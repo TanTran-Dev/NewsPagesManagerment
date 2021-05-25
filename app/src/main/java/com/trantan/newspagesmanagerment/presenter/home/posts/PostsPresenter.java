@@ -4,4 +4,5 @@ import com.trantan.newspagesmanagerment.base.presenter.BasePresenter;
 
 public interface PostsPresenter extends BasePresenter {
     void refreshPosts();
+    void loadMorePosts();
 }

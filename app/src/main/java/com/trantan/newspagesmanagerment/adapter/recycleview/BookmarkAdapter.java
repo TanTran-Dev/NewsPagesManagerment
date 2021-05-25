@@ -1,9 +1,8 @@
-package com.trantan.newspagesmanagerment.adapter;
+package com.trantan.newspagesmanagerment.adapter.recycleview;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,7 +47,7 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.NewNor
     @NonNull
     @Override
     public NewNormalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news_bookmark, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_bookmark, parent, false);
         return new NewNormalHolder(view);
     }
 

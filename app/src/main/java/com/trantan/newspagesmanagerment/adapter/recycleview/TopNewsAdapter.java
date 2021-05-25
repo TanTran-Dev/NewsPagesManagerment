@@ -1,4 +1,4 @@
-package com.trantan.newspagesmanagerment.adapter;
+package com.trantan.newspagesmanagerment.adapter.recycleview;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +45,7 @@ public class TopNewsAdapter extends RecyclerView.Adapter<TopNewsAdapter.TopNewsV
     @Override
     public TopNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_news_horizontal, parent, false);
+                .inflate(R.layout.item_post_horizontal, parent, false);
         return new TopNewsViewHolder(view);
     }
 

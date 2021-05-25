@@ -27,6 +27,7 @@
             app:menu="@menu/bottom_navigation"
             android:layout_alignParentBottom="true"
             android:id="@+id/rootBottomNav"
+            android:background="@color/colorPrimary"
             app:labelVisibilityMode="labeled"
             app:itemIconTint="@drawable/bg_item_bottom_nav"
             app:itemTextColor="@drawable/bg_item_bottom_nav"

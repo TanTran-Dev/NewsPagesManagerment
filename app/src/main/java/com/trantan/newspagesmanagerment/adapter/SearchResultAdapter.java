@@ -53,7 +53,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     @NonNull
     @Override
     public NewNormalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news_bookmark, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_bookmark, parent, false);
         return new NewNormalHolder(view);
     }
 

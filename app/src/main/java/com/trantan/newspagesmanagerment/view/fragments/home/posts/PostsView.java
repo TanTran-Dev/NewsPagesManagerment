@@ -6,8 +6,14 @@ import java.util.List;
 
 public interface PostsView {
     void refreshPosts(List<Post> posts);
+    void addPosts(List<Post> posts);
 
     void enableRefreshingProgress(boolean enable);
     void showRefreshingProgress();
     void hideRefreshingProgress();
+
+    void showLoadMoreProgress();
+    void hideLoadMoreProgress();
+
+    void enableLoadMore(boolean enable);
 }

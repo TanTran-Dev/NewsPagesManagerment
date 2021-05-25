@@ -47,7 +47,7 @@ public class SuggestionAdapter extends RecyclerView.Adapter<SuggestionAdapter.Ne
     public NewSuggestionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater
-                .from(parent.getContext()).inflate(R.layout.item_news_suggestion, parent, false);
+                .from(parent.getContext()).inflate(R.layout.item_post_suggestion, parent, false);
         return new NewSuggestionViewHolder(view);
     }
 
