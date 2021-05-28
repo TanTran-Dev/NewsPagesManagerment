@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutSuggestion"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="6dp"
+    android:visibility="gone"
+    app:cardUseCompatPadding="true">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rclSuggestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp" />
+</androidx.cardview.widget.CardView>

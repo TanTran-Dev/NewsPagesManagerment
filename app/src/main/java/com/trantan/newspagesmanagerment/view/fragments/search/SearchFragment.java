@@ -1,64 +1,100 @@
 package com.trantan.newspagesmanagerment.view.fragments.search;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
-import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
+import com.trantan.newspagesmanagerment.adapter.BottomPagerAdapter;
+import com.trantan.newspagesmanagerment.adapter.recycleview.base.EndlessLoadingRecyclerViewAdapter;
+import com.trantan.newspagesmanagerment.adapter.recycleview.base.RecyclerViewAdapter;
+import com.trantan.newspagesmanagerment.base.view.fragment.BaseFragment;
+import com.trantan.newspagesmanagerment.custom_views.LoadingDialog;
+import com.trantan.newspagesmanagerment.model.response.Post;
+import com.trantan.newspagesmanagerment.presenter.search.SearchPresenterImpl;
 import com.trantan.newspagesmanagerment.adapter.SearchResultAdapter;
 import com.trantan.newspagesmanagerment.adapter.SuggestionAdapter;
 import com.trantan.newspagesmanagerment.event_bus.DataNewsEvent;
-import com.trantan.newspagesmanagerment.model.ItemDataNew;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchFragment extends Fragment implements SearchView.OnQueryTextListener, SearchResultAdapter.ItemClickListener {
+public class SearchFragment extends BaseFragment<SearchPresenterImpl> implements
+        SearchView.OnQueryTextListener,
+        com.trantan.newspagesmanagerment.view.fragments.search.SearchView, RecyclerViewAdapter.OnItemClickListener,
+        EndlessLoadingRecyclerViewAdapter.OnLoadingMoreListener {
     @BindView(R.id.search_view)
     SearchView searchView;
-    @BindView(R.id.rcl_item_Suggestion)
-    RecyclerView rclSuggestion;
+    @BindView(R.id.rclSearchResult)
+    RecyclerView rclSearchResult;
+    @BindView(R.id.rclSuggestion)
+    RecyclerView rclSearchSuggestion;
+    @BindView(R.id.layoutSuggestion)
+    CardView layoutSuggestion;
 
     private SuggestionAdapter suggestionAdapter;
     private SearchResultAdapter resultAdapter;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        ButterKnife.bind(this, view);
+    private LoadingDialog loadingDialog;
 
+    @Override
+    protected int getLayoutIntResource() {
+        return R.layout.fragment_search;
+    }
+
+    @Override
+    public String getName() {
+        return BottomPagerAdapter.SEARCH_FRAGMENT;
+    }
+
+    @Override
+    protected void initVariables(Bundle saveInstanceState, View rootView) {
+        ButterKnife.bind(this, rootView);
+        loadingDialog = new LoadingDialog(getContext());
         configRecycleViewSuggestion();
 
         searchView.setOnQueryTextListener(this);
-        return view;
     }
 
+    @Override
+    protected void initData(Bundle saveInstanceState) {
+
+    }
+
+    @Override
+    protected SearchPresenterImpl initPresenter() {
+        return new SearchPresenterImpl(getContext(), this);
+    }
+
+
     private void configRecycleViewSuggestion() {
-        resultAdapter = new SearchResultAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        rclSuggestion.setLayoutManager(linearLayoutManager);
-////        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-////                linearLayoutManager.getOrientation());
-//        rclSuggestion.addItemDecoration(dividerItemDecoration);
-        rclSuggestion.setAdapter(resultAdapter);
+//        suggestionAdapter = new SuggestionAdapter(getContext());
+//        suggestionAdapter.addOnItemClickListener(this);
+//        rclSearchSuggestion.setLayoutManager(new LinearLayoutManager(getContext()));
+//////        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
+//////                linearLayoutManager.getOrientation());
+////        rclSuggestion.addItemDecoration(dividerItemDecoration);
+//        rclSearchSuggestion.setAdapter(suggestionAdapter);
+
+
+        resultAdapter = new SearchResultAdapter(getContext());
+        resultAdapter.addOnItemClickListener(this);
+        resultAdapter.setLoadingMoreListener(this);
+        rclSearchResult.setLayoutManager(new LinearLayoutManager(getContext()));
+        rclSearchResult.setAdapter(resultAdapter);
 
     }
 
@@ -80,36 +116,88 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         String linkImage = dataNewsEvent.getItemDataNew().getLinkImage();
         String linkDetail = dataNewsEvent.getItemDataNew().getLinkDetail();
         String description = dataNewsEvent.getItemDataNew().getDescription();
-        ItemDataNew dataNew = new ItemDataNew(title, linkImage, description, linkDetail);
-        resultAdapter.addItem(dataNew);
-        resultAdapter.notifyDataSetChanged();
+        Post dataNew = new Post(title, linkImage, description, linkDetail);
+        suggestionAdapter.addModel(dataNew, false);
+        suggestionAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        resultAdapter.getFilter().filter(query);
+        getPresenter().setQuery(query);
+        getPresenter().querySearchPost();
+
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String query) {
-        resultAdapter.getFilter().filter(query);
 
         return true;
     }
 
-    @Override
-    public void onItemClick(ItemDataNew itemDataNew, View view, int position) {
-        Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra(Constants.KEY_ITEM_NEW, itemDataNew);
 
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(getActivity(),view.findViewById(R.id.img_new), "imgNews");
-        startActivity(intent, optionsCompat.toBundle());
+    @Override
+    public void refreshResults(List<Post> posts) {
+//        if (posts.size() > 0){
+//            layoutSuggestion.setVisibility(View.VISIBLE);
+//        } else {
+//            layoutSuggestion.setVisibility(View.GONE);
+//        }
+//        suggestionAdapter.refresh(posts);
+//        suggestionAdapter.notifyDataSetChanged();
+
+        resultAdapter.refresh(posts);
+        resultAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onLongClickItem(ItemDataNew itemDataNew) {
+    public void addResults(List<Post> posts) {
+        resultAdapter.addModels(posts, false);
+    }
 
+    @Override
+    public void showRefreshingProgress() {
+        loadingDialog.show();
+    }
+
+    @Override
+    public void hideRefreshingProgress() {
+        loadingDialog.hide();
+    }
+
+    @Override
+    public void enableRefreshing(boolean enable) {
+
+    }
+
+    @Override
+    public void enableLoadingMore(boolean enable) {
+        resultAdapter.enableLoadingMore(enable);
+    }
+
+    @Override
+    public void showLoadMoreProgress() {
+        resultAdapter.showLoadingItem(true);
+    }
+
+    @Override
+    public void hideLoadMoreProgress() {
+        resultAdapter.hideLoadingItem();
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.Adapter adapter, RecyclerView.ViewHolder viewHolder, int viewType, int position) {
+//
+//        Intent intent = new Intent(getContext(), DetailActivity.class);
+//        intent.putExtra(Constants.KEY_ITEM_NEW, itemDataNew);
+//
+//        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
+//                .makeSceneTransitionAnimation(getActivity(),view.findViewById(R.id.img_new), "imgNews");
+//        startActivity(intent, optionsCompat.toBundle());
+    }
+
+    @Override
+    public void onLoadMore() {
+        getPresenter().loadMoreResult();
     }
 }

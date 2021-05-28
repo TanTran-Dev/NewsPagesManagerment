@@ -45,7 +45,6 @@ public class HomePresenterImpl implements HomePresenter {
                 });
     }
 
-
     @Override
     public void onViewDestroy() {
         interactor.onViewDestroy();

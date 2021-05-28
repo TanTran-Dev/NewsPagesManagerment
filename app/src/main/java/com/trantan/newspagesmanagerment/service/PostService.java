@@ -9,6 +9,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface PostService {
@@ -16,6 +18,15 @@ public interface PostService {
     Observable<ResponseBody<Page<Post>>> getPosts(
             @Query("websiteID") Integer websiteID,
             @Query("categoryID") Integer categoryID,
+            @Query(RequestConstants.SORT_BY) List<String> sortBy,
+            @Query(RequestConstants.SORT_TYPE) List<String> sortType,
+            @Query(RequestConstants.PAGE_INDEX) int pageIndex,
+            @Query(RequestConstants.PAGE_SIZE) int pageSize
+    );
+
+    @POST("/api/post/")
+    Observable<ResponseBody<Page<Post>>> searchPost(
+            @Query("title") String title,
             @Query(RequestConstants.SORT_BY) List<String> sortBy,
             @Query(RequestConstants.SORT_TYPE) List<String> sortType,
             @Query(RequestConstants.PAGE_INDEX) int pageIndex,

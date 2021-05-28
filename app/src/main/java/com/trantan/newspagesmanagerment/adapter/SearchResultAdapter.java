@@ -1,5 +1,6 @@
 package com.trantan.newspagesmanagerment.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.trantan.newspagesmanagerment.R;
+import com.trantan.newspagesmanagerment.adapter.recycleview.base.EndlessLoadingRecyclerViewAdapter;
 import com.trantan.newspagesmanagerment.model.ItemDataNew;
+import com.trantan.newspagesmanagerment.model.response.Post;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,101 +25,49 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.NewNormalHolder> implements Filterable {
-    private List<ItemDataNew> dataNews;
-    private List<ItemDataNew> dataFiltered;
-    private ItemClickListener itemClickListener;
+public class SearchResultAdapter extends EndlessLoadingRecyclerViewAdapter {
 
-    public SearchResultAdapter(ItemClickListener listener) {
-        this.dataNews = new ArrayList<>();
-        this.dataFiltered = new ArrayList<>(dataNews);
-        this.itemClickListener = listener;
+    public SearchResultAdapter(Context context) {
+        super(context, false);
     }
 
-    public List<ItemDataNew> getDataNews() {
-        return dataNews;
-    }
 
-    public void setDataNews(List<ItemDataNew> dataNews) {
-        this.dataNews = dataNews;
-    }
-
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
-
-    public void addItem(ItemDataNew itemDataNew) {
-        this.dataNews.add(itemDataNew);
-        this.dataFiltered.add(itemDataNew);
-    }
-
-    @NonNull
     @Override
-    public NewNormalHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    protected RecyclerView.ViewHolder initNormalViewHolder(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_bookmark, parent, false);
-        return new NewNormalHolder(view);
+        return new PostNormalHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull final NewNormalHolder holder, int position) {
-        final ItemDataNew itemDataNew = dataNews.get(position);
-        holder.txtTitlePreview.setText(itemDataNew.getTitle());
-        holder.txtDescription.setText(itemDataNew.getDescription());
-        holder.txtCreatedDate.setText(itemDataNew.getCreatedDate());
+    protected void bindNormalViewHolder(NormalViewHolder holder, int position) {
+        Context context = getContext();
+        final Post post = getItem(position, Post.class);
+        PostNormalHolder viewHolder = (PostNormalHolder) holder;
+        viewHolder.txtTitlePreview.setText(post.getTitle());
+        viewHolder.txtDescription.setText(post.getDescription());
+        viewHolder.txtCreatedDate.setText(post.getCreatedDate());
 
-        Glide.with(holder.itemView.getContext())
-                .load(itemDataNew.getLinkImage())
+        Glide.with(context)
+                .load(post.getThumbnailUrl())
                 .error(R.drawable.placeholder)
                 .centerCrop()
-                .into(holder.imgNews);
+                .into(viewHolder.imgNews);
 
     }
 
     @Override
-    public int getItemCount() {
-        if (dataNews == null) {
-            return 0;
-        } else {
-            return dataNews.size();
-        }
+    protected RecyclerView.ViewHolder initLoadingViewHolder(ViewGroup parent) {
+        View view = getInflater().inflate(R.layout.item_loading, parent, false);
+        return new LoadingViewHolder(view);
     }
 
     @Override
-    public Filter getFilter() {
-        return filter;
+    protected void bindLoadingViewHolder(LoadingViewHolder loadingViewHolder, int position) {
+
     }
 
-    Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            String charString = charSequence.toString();
-            List<ItemDataNew> filteredList = new ArrayList<>();
-            if (!charString.isEmpty()) {
-                for (ItemDataNew row : dataFiltered) {
-                    if (row.getTitle().toLowerCase().contains(charString.toLowerCase())) {
-                        filteredList.add(row);
-                    }
-                }
-            } else {
-                filteredList.addAll(dataFiltered);
-            }
 
-            FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredList;
-            return filterResults;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            dataNews.clear();
-            dataNews.addAll((Collection<? extends ItemDataNew>) results.values);
-            notifyDataSetChanged();
-        }
-    };
-    
-
-    class NewNormalHolder extends RecyclerView.ViewHolder {
+    class PostNormalHolder extends NormalViewHolder {
         @BindView(R.id.img_new)
         ImageView imgNews;
         @BindView(R.id.txt_title_preview)
@@ -126,20 +77,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         @BindView(R.id.txt_created_date)
         TextView txtCreatedDate;
 
-        public NewNormalHolder(@NonNull View itemView) {
+        public PostNormalHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(v -> {
-                int i = getAdapterPosition();
-                itemClickListener.onItemClick(dataNews.get(i), imgNews, i);
-            });
         }
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(ItemDataNew itemDataNew, View view, int position);
-
-        void onLongClickItem(ItemDataNew itemDataNew);
-
     }
 }

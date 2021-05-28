@@ -6,10 +6,8 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -20,10 +18,14 @@ import com.google.android.material.navigation.NavigationView;
 import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.adapter.BottomPagerAdapter;
 import com.trantan.newspagesmanagerment.adapter.recycleview.DrawerItemCustomAdapter;
+import com.trantan.newspagesmanagerment.adapter.recycleview.base.RecyclerViewAdapter;
 import com.trantan.newspagesmanagerment.base.view.activity.BaseActivity;
+import com.trantan.newspagesmanagerment.event_bus.EventChangeWebsite;
 import com.trantan.newspagesmanagerment.model.response.Website;
 import com.trantan.newspagesmanagerment.presenter.main.MainPresenter;
 import com.trantan.newspagesmanagerment.presenter.main.MainPresenterImpl;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -31,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainView {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainView, RecyclerViewAdapter.OnItemClickListener {
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.nav_view)
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     RecyclerView rclMenu;
 
     private DrawerItemCustomAdapter drawerItemCustomAdapter;
+    private BottomPagerAdapter pagerAdapter;
 
     @Override
     protected int getLayoutIntResource() {
@@ -66,18 +69,28 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        BottomPagerAdapter pagerAdapter = new BottomPagerAdapter(fragmentManager, 4);
+       initViewPager();
+
+    }
+
+    private void initViewPager(){
+        pagerAdapter = new BottomPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(4);
 
-        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        initBottomNavigation();
+    }
 
+    private void initBottomNavigation(){
+        bottomNavigation.getMenu().clear();
+        bottomNavigation.inflateMenu(R.menu.bottom_navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
     @Override
     protected void initData(Bundle saveInstanceState) {
         drawerItemCustomAdapter = new DrawerItemCustomAdapter(this);
+        drawerItemCustomAdapter.addOnItemClickListener(this);
         rclMenu.setLayoutManager(new LinearLayoutManager(this));
         rclMenu.setAdapter(drawerItemCustomAdapter);
 
@@ -94,36 +107,49 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            String fragmentName;
+            String toolbarTitle;
             switch (item.getItemId()) {
                 case R.id.nav_home: {
-                    toolbar.setTitle("Home");
                     appBarLayout.setVisibility(View.VISIBLE);
-                    viewPager.setCurrentItem(BottomPagerAdapter.HOME_FRAGMENT_POSITION);
+                    toolbarTitle = "Home";
+                    fragmentName = BottomPagerAdapter.HOME_FRAGMENT;
                 }
-                return true;
+                break;
 
                 case R.id.nav_search: {
-                    toolbar.setTitle("Search");
                     appBarLayout.setVisibility(View.GONE);
-                    viewPager.setCurrentItem(BottomPagerAdapter.SEARCH_FRAGMENT_POSITION);
+                    toolbarTitle = "Search";
+                    fragmentName = BottomPagerAdapter.SEARCH_FRAGMENT;
                 }
-                return true;
+                break;
 
                 case R.id.nav_bookmark: {
-                    toolbar.setTitle("Bookmark");
                     appBarLayout.setVisibility(View.VISIBLE);
-                    viewPager.setCurrentItem(BottomPagerAdapter.BOOKMARK_FRAGMENT_POSITION);
+                    toolbarTitle = "Bookmark";
+                    fragmentName = BottomPagerAdapter.BOOKMARK_FRAGMENT;
                 }
-                return true;
+                break;
 
                 case R.id.nav_notification: {
-                    toolbar.setTitle("Notification");
                     appBarLayout.setVisibility(View.VISIBLE);
-                    viewPager.setCurrentItem(BottomPagerAdapter.NOTIFICATION_FRAGMENT_POSITION);
+                    toolbarTitle = "Notification";
+                    fragmentName = BottomPagerAdapter.NOTIFICATION_FRAGMENT;
                 }
-                return true;
+                break;
+
+                default: {
+                    return false;
+                }
             }
-            return false;
+
+            toolbar.setTitle(toolbarTitle);
+            int fragmentPosition = pagerAdapter.getFragmentPosition(fragmentName);
+            if (fragmentPosition >= 0) {
+                viewPager.setCurrentItem(fragmentPosition);
+            }
+
+            return true;
         }
     };
 
@@ -140,5 +166,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @Override
     public void refreshWebsites(List<Website> websites) {
         drawerItemCustomAdapter.refresh(websites);
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.Adapter adapter, RecyclerView.ViewHolder viewHolder,
+                            int viewType, int position) {
+        Website website = drawerItemCustomAdapter.getItem(position, Website.class);
+        EventBus.getDefault().post(new EventChangeWebsite(website));
     }
 }

@@ -66,6 +66,13 @@ public class Post implements Serializable {
         this.createdDate = createdDate;
     }
 
+    public Post(String title, String linkImage, String description, String linkDetail) {
+        this.title = title;
+        this.thumbnailUrl = linkImage;
+        this.description = description;
+        this.linkDetail = linkDetail;
+    }
+
     public String getId() {
         return id;
     }

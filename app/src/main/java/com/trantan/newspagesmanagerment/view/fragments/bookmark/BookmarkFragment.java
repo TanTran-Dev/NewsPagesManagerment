@@ -17,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.trantan.newspagesmanagerment.Constants;
 import com.trantan.newspagesmanagerment.R;
+import com.trantan.newspagesmanagerment.adapter.BottomPagerAdapter;
+import com.trantan.newspagesmanagerment.base.presenter.BasePresenter;
+import com.trantan.newspagesmanagerment.base.view.fragment.BaseFragment;
 import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
 import com.trantan.newspagesmanagerment.adapter.recycleview.BookmarkAdapter;
 import com.trantan.newspagesmanagerment.database.DatabaseHelper;
@@ -32,19 +35,37 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BookmarkFragment extends Fragment implements BookmarkAdapter.ItemClickListener {
+public class BookmarkFragment extends BaseFragment implements BookmarkAdapter.ItemClickListener {
     @BindView(R.id.rcl_normal)
     RecyclerView rclView;
 
     private BookmarkAdapter bookmarkAdapter;
     private List<ItemDataNew> itemDataNews;
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bookmark, container, false);
-        ButterKnife.bind(this,view);
+    protected int getLayoutIntResource() {
+        return R.layout.fragment_bookmark;
+    }
+
+    @Override
+    public String getName() {
+        return BottomPagerAdapter.BOOKMARK_FRAGMENT;
+    }
+
+    @Override
+    protected void initVariables(Bundle saveInstanceState, View rootView) {
+        ButterKnife.bind(this,rootView);
         configRecyclerview();
-        return view;
+    }
+
+    @Override
+    protected void initData(Bundle saveInstanceState) {
+
+    }
+
+    @Override
+    protected BasePresenter initPresenter() {
+        return null;
     }
 
     @Override
