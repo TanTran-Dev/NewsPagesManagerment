@@ -92,15 +92,15 @@ public class TopNewsAdapter extends RecyclerView.Adapter<TopNewsAdapter.TopNewsV
                 }
             });
 
-            btnAddToBookmark.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int i = getAdapterPosition();
-                    ItemDataNew itemDataNew = topDataNews.get(i);
-                    DatabaseHelper.getInMemoryDatabase(itemView.getContext()).getItemDataNewsDAO().addNew(itemDataNew);
-                    EventBus.getDefault().post(new SaveNewEvent(itemDataNew));
-                }
-            });
+//            btnAddToBookmark.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int i = getAdapterPosition();
+//                    ItemDataNew itemDataNew = topDataNews.get(i);
+//                    DatabaseHelper.getInMemoryDatabase(itemView.getContext()).getItemDataNewsDAO().addNew(itemDataNew);
+//                    EventBus.getDefault().post(new SaveNewEvent(itemDataNew));
+//                }
+//            });
         }
     }
 

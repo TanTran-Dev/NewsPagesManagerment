@@ -5,7 +5,7 @@ import com.trantan.newspagesmanagerment.model.response.Post;
 import java.util.List;
 
 public interface SearchView {
-    void refreshResults(List<Post> posts);
+    void refreshResults(List<Post> posts, int totalItems);
     void addResults(List<Post> posts);
 
     void showRefreshingProgress();

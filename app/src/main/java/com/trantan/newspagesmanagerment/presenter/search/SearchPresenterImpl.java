@@ -40,7 +40,7 @@ public class SearchPresenterImpl implements SearchPresenter{
                         view.enableLoadingMore(true);
 
                         if (!success){
-                            view.refreshResults(Collections.emptyList());
+                            view.refreshResults(Collections.emptyList(), 0);
                         }
                     }
 
@@ -50,7 +50,7 @@ public class SearchPresenterImpl implements SearchPresenter{
 
                         view.enableLoadingMore(page.getPageIndex() != page.getMaxPageIndex());
                         currentPage = 0;
-                        view.refreshResults(page.getItems());
+                        view.refreshResults(page.getItems(), page.getTotalItems());
 
                     }
                 });

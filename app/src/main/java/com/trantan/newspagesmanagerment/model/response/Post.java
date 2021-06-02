@@ -1,5 +1,6 @@
 package com.trantan.newspagesmanagerment.model.response;
 
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -10,45 +11,45 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 @Entity(tableName = "Post")
-public class Post implements Serializable {
+public class Post {
     @SerializedName("id")
     @Expose
-    @PrimaryKey(autoGenerate = true)
+//    @PrimaryKey(autoGenerate = true)
     private String id;
 
     @SerializedName("title")
     @Expose
-    @ColumnInfo(name = "title")
+//    @ColumnInfo(name = "title")
     private String title;
 
     @SerializedName("description")
     @Expose
-    @ColumnInfo(name = "description")
+//    @ColumnInfo(name = "description")
     private String description;
 
     @SerializedName("categoryDTO")
     @Expose
-    @ColumnInfo(name = "category_id")
+//    @ColumnInfo(name = "category_id")
     private Category category;
 
     @SerializedName("websiteDTO")
     @Expose
-    @ColumnInfo(name = "website_id")
+//    @ColumnInfo(name = "website_id")
     private Website website;
 
     @SerializedName("thumbnailUrl")
     @Expose
-    @ColumnInfo(name = "thumbnail_url")
+//    @ColumnInfo(name = "thumbnail_url")
     private String thumbnailUrl;
 
     @SerializedName("linkDetail")
     @Expose
-    @ColumnInfo(name = "link_detail")
+//    @ColumnInfo(name = "link_detail")
     private String linkDetail;
 
     @SerializedName("createdDate")
     @Expose
-    @ColumnInfo(name = "created_date")
+//    @ColumnInfo(name = "created_date")
     private String createdDate;
 
     public Post() {
@@ -136,4 +137,5 @@ public class Post implements Serializable {
     public void setWebsite(Website website) {
         this.website = website;
     }
+
 }

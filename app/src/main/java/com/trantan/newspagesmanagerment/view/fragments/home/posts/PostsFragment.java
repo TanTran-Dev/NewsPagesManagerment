@@ -1,6 +1,7 @@
 package com.trantan.newspagesmanagerment.view.fragments.home.posts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,11 +20,13 @@ import com.trantan.newspagesmanagerment.base.view.fragment.BaseFragment;
 import com.trantan.newspagesmanagerment.event_bus.SelectedTabEvent;
 import com.trantan.newspagesmanagerment.model.response.Post;
 import com.trantan.newspagesmanagerment.presenter.home.posts.PostsPresenterImpl;
+import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -155,6 +158,14 @@ public class PostsFragment extends BaseFragment<PostsPresenterImpl> implements P
 
     @Override
     public void onItemClick(RecyclerView.Adapter adapter, RecyclerView.ViewHolder viewHolder, int viewType, int position) {
+        Context context = getActivity();
+        Post post = postAdapter.getItem(position, Post.class);
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(Constants.KEY_POST_ID,  post.getId());
+        intent.putExtra(Constants.KEY_TITLE_POST, post.getTitle());
+        intent.putExtra(Constants.KEY_DESCRIPTION, post.getDescription());
+        intent.putExtra(Constants.KEY_THUMBNAIL, post.getThumbnailUrl());
 
+        context.startActivity(intent);
     }
 }

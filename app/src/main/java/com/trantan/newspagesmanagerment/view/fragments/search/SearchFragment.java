@@ -1,6 +1,8 @@
 package com.trantan.newspagesmanagerment.view.fragments.search;
 
+import android.app.Activity;
 import android.content.Context;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.adapter.BottomPagerAdapter;
@@ -44,6 +49,10 @@ public class SearchFragment extends BaseFragment<SearchPresenterImpl> implements
     RecyclerView rclSearchSuggestion;
     @BindView(R.id.layoutSuggestion)
     CardView layoutSuggestion;
+    @BindView(R.id.txtTotalResult)
+    TextView txtTotalResult;
+    @BindView(R.id.ln_no_data)
+    LinearLayout lnNoData;
 
     private SuggestionAdapter suggestionAdapter;
     private SearchResultAdapter resultAdapter;
@@ -121,11 +130,22 @@ public class SearchFragment extends BaseFragment<SearchPresenterImpl> implements
         suggestionAdapter.notifyDataSetChanged();
     }
 
+    public static void hideKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null){
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         getPresenter().setQuery(query);
         getPresenter().querySearchPost();
 
+        searchView.setFocusable(false);
+
+        hideKeyboard(getActivity());
         return false;
     }
 
@@ -137,7 +157,7 @@ public class SearchFragment extends BaseFragment<SearchPresenterImpl> implements
 
 
     @Override
-    public void refreshResults(List<Post> posts) {
+    public void refreshResults(List<Post> posts, int totalItems) {
 //        if (posts.size() > 0){
 //            layoutSuggestion.setVisibility(View.VISIBLE);
 //        } else {
@@ -145,9 +165,19 @@ public class SearchFragment extends BaseFragment<SearchPresenterImpl> implements
 //        }
 //        suggestionAdapter.refresh(posts);
 //        suggestionAdapter.notifyDataSetChanged();
+        if (totalItems > 0) {
+            txtTotalResult.setText("Tìm thấy: " + totalItems + " kết quả");
+            resultAdapter.refresh(posts);
+            resultAdapter.notifyDataSetChanged();
 
-        resultAdapter.refresh(posts);
-        resultAdapter.notifyDataSetChanged();
+            lnNoData.setVisibility(View.GONE);
+            txtTotalResult.setVisibility(View.VISIBLE);
+            rclSearchResult.setVisibility(View.VISIBLE);
+        } else {
+            lnNoData.setVisibility(View.VISIBLE);
+            txtTotalResult.setVisibility(View.GONE);
+            rclSearchResult.setVisibility(View.GONE);
+        }
     }
 
     @Override

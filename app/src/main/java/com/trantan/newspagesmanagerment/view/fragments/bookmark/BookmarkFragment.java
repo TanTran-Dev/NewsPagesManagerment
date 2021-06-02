@@ -20,6 +20,7 @@ import com.trantan.newspagesmanagerment.R;
 import com.trantan.newspagesmanagerment.adapter.BottomPagerAdapter;
 import com.trantan.newspagesmanagerment.base.presenter.BasePresenter;
 import com.trantan.newspagesmanagerment.base.view.fragment.BaseFragment;
+import com.trantan.newspagesmanagerment.model.response.Post;
 import com.trantan.newspagesmanagerment.view.activities.DetailActivity;
 import com.trantan.newspagesmanagerment.adapter.recycleview.BookmarkAdapter;
 import com.trantan.newspagesmanagerment.database.DatabaseHelper;
@@ -40,7 +41,7 @@ public class BookmarkFragment extends BaseFragment implements BookmarkAdapter.It
     RecyclerView rclView;
 
     private BookmarkAdapter bookmarkAdapter;
-    private List<ItemDataNew> itemDataNews;
+    private List<Post> itemDataNews;
 
     @Override
     protected int getLayoutIntResource() {
@@ -90,16 +91,16 @@ public class BookmarkFragment extends BaseFragment implements BookmarkAdapter.It
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSaveNewEvent(SaveNewEvent saveNewEvent){
-            bookmarkAdapter.addItem(saveNewEvent.getItemDataNew());
-            bookmarkAdapter.notifyDataSetChanged();
-
-           Toast.makeText(getContext(), "Added", Toast.LENGTH_LONG).show();
+//            bookmarkAdapter.addItem(saveNewEvent.getItemDataNew());
+//            bookmarkAdapter.notifyDataSetChanged();
+//
+//           Toast.makeText(getContext(), "Added", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onItemClick(ItemDataNew itemDataNew, View view, int position) {
         Intent intent = new Intent(getContext(), DetailActivity.class);
-        intent.putExtra(Constants.KEY_ITEM_NEW, itemDataNew);
+        intent.putExtra(Constants.KEY_ITEM_POST, itemDataNew);
 
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat
                 .makeSceneTransitionAnimation(getActivity(),view.findViewById(R.id.img_new), "imgNews");

@@ -26,4 +26,10 @@
     <dimen name="font_size_18dp">18dp</dimen>
     <dimen name="drawer_header_height">192dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="font_size_16dp">16dp</dimen>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="margin_12dp">12dp</dimen>
 </resources>

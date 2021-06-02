@@ -1,23 +1,23 @@
 package com.trantan.newspagesmanagerment.event_bus;
 
 
-import com.trantan.newspagesmanagerment.model.ItemDataNew;
+import com.trantan.newspagesmanagerment.model.response.Post;
 
 public class SaveNewEvent {
-    private ItemDataNew itemDataNew;
+    private Post post;
 
     public SaveNewEvent() {
     }
 
-    public SaveNewEvent(ItemDataNew itemDataNew) {
-        this.itemDataNew = itemDataNew;
+    public SaveNewEvent(Post post) {
+        this.post = post;
     }
 
-    public ItemDataNew getItemDataNew() {
-        return itemDataNew;
+    public Post getItemDataNew() {
+        return post;
     }
 
-    public void setItemDataNew(ItemDataNew itemDataNew) {
-        this.itemDataNew = itemDataNew;
+    public void setItemDataNew(Post post) {
+        this.post = post;
     }
 }
